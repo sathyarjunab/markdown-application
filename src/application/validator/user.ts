@@ -7,7 +7,7 @@ export const user = z.object({
   name: z.string(),
   email: z.string().email(),
   password: z.string(),
-  type: z.enum(userType),
+  type: z.enum(userType).optional(),
 });
 
 export const loginValidation = z.object({

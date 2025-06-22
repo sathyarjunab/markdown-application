@@ -54,6 +54,7 @@ class UserRepo {
       email: userDetails.email,
     });
     if (existingUser) {
+      console.log(userDetails.password, existingUser);
       const match = await bcrypt.compare(
         userDetails.password,
         existingUser.password
@@ -67,7 +68,11 @@ class UserRepo {
         data: existingUser,
       };
     } else {
-      return { success: false, status: 400, message: "invalid credentials" };
+      return {
+        success: false,
+        status: 400,
+        message: "Can't find your account",
+      };
     }
   }
 }

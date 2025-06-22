@@ -11,7 +11,7 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
-  type: TypeOfUser;
+  type?: TypeOfUser;
 }
 
 export const UserSchema = new Schema<IUser>(

@@ -36,6 +36,13 @@ class UserController {
       return;
     }
     const token = JwtTokenGenrator(req.body);
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      path: "/",
+      maxAge: 60 * 60 * 1000 * 24,
+    });
     res.status(200).send({ token: token });
   }
 }
