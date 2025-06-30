@@ -45,6 +45,9 @@ class UserController {
     });
     res.status(200).send({ token: token });
   }
+  public async uploadFile(req: Request, res: Response) {
+    const markdown: string = req.body.markdown;
+  }
 }
 
 const userController = new UserController();
