@@ -1,8 +1,6 @@
 import jwt from "jsonwebtoken";
-import { IUser } from "../../infrastructure/data-base/User";
 
-export const JwtTokenGenrator = (payLoad: IUser) => {
-  console.log(payLoad);
+export const JwtTokenGenrator = (payLoad: string) => {
   if (process.env.SECRETE) {
     const token = jwt.sign(payLoad, process.env.SECRETE, {
       algorithm: "HS256",
@@ -11,9 +9,10 @@ export const JwtTokenGenrator = (payLoad: IUser) => {
   }
 };
 
-export const JwtTokenVerify = (token: string) => {
-  if (process.env.SECRETE) {
-    const valid = jwt.verify(token, process.env.SECRETE);
-    console.log(valid);
+export const JwtTokenVerify = (token: string | undefined) => {
+  if (!process.env.SECRETE || !token) {
+    return;
   }
+  const payLoad = jwt.verify(token, process.env.SECRETE);
+  return payLoad;
 };

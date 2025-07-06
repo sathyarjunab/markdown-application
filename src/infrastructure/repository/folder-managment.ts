@@ -1,27 +1,47 @@
+import { Schema } from "mongoose";
+import Folder from "../data-base/Folder.ts";
+import File from "../data-base/File.ts";
+
 class FolderManagement {
-  private folderPath: string;
-
-  constructor(folderPath: string) {
-    this.folderPath = folderPath;
-  }
-
-  public async createFolder(folderName: string): Promise<void> {
-    const fullPath = `${this.folderPath}/${folderName}`;
+  public async createFolder(folderName: string, id: Schema.Types.ObjectId) {
     try {
-      await fs.promises.mkdir(fullPath, { recursive: true });
-      console.log(`Folder created at ${fullPath}`);
+      const folderCreatedResp = await Folder.create({
+        name: folderName,
+        userId: id,
+      });
+      return folderCreatedResp;
     } catch (error) {
       console.error(`Error creating folder: ${error}`);
     }
   }
 
-  public async deleteFolder(folderName: string): Promise<void> {
-    const fullPath = `${this.folderPath}/${folderName}`;
+  public async createFile(fileDeatails: {
+    fileContent: string;
+    fileName: string;
+    folderId: Schema.Types.ObjectId;
+    userId: Schema.Types.ObjectId;
+    type: "file";
+  }) {
     try {
-      await fs.promises.rmdir(fullPath, { recursive: true });
-      console.log(`Folder deleted at ${fullPath}`);
+      const fileCreatedResp = await File.create({
+        ...fileDeatails,
+      });
+      console.log(fileCreatedResp);
+      return fileCreatedResp;
+    } catch (error) {
+      console.log(`Error creating file: ${error}`);
+    }
+  }
+
+  public async deleteFolder(id: Schema.Types.ObjectId) {
+    try {
+      const deletedFolderResp = await Folder.findByIdAndDelete(id);
+      return deletedFolderResp;
     } catch (error) {
       console.error(`Error deleting folder: ${error}`);
     }
   }
 }
+
+const folderManagement = new FolderManagement();
+export default folderManagement;

@@ -33,6 +33,6 @@ export const FileSchema = new Schema<IFile>(
   }
 );
 
-const File: Model<IFile> = model("Folder", FileSchema);
+const File: Model<IFile> = model("File", FileSchema);
 
 export default File;

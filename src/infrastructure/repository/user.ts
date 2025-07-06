@@ -54,7 +54,6 @@ class UserRepo {
       email: userDetails.email,
     });
     if (existingUser) {
-      console.log(userDetails.password, existingUser);
       const match = await bcrypt.compare(
         userDetails.password,
         existingUser.password

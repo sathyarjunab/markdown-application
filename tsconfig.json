@@ -8,7 +8,8 @@
     "resolveJsonModule": true,
     "strict": true,
     "allowImportingTsExtensions": true,
-    "noEmit": true
+    "noEmit": true,
+    "typeRoots": ["./node_modules/@types", "./src/types", "./types"]
   },
   "ts-node": {
     "esm": true

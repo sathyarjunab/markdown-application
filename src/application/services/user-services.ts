@@ -35,18 +35,15 @@ class UserController {
       res.status(result.status).send({ message: result.message });
       return;
     }
-    const token = JwtTokenGenrator(req.body);
+    const token = JwtTokenGenrator(req.body.email);
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       path: "/",
       maxAge: 60 * 60 * 1000 * 24,
     });
     res.status(200).send({ token: token });
-  }
-  public async uploadFile(req: Request, res: Response) {
-    const markdown: string = req.body.markdown;
   }
 }
 

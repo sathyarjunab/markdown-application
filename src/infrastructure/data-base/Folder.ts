@@ -1,6 +1,6 @@
-import { model, Model, Schema } from "mongoose";
+import mongoose, { model, Model, Schema } from "mongoose";
 
-interface IFolder {
+export interface IFolder {
   name: string;
   userId: Schema.Types.ObjectId;
 }
@@ -23,6 +23,7 @@ export const FolderSchema = new Schema<IFolder>(
   }
 );
 
-const Folder: Model<IFolder> = model("Folder", FolderSchema);
+const Folder: Model<IFolder> =
+  mongoose.models.Folder || model("Folder", FolderSchema);
 
 export default Folder;
